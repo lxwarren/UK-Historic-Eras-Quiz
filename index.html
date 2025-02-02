@@ -5,42 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>History Quiz</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'IM Fell English SC', serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background: url('https://images.unsplash.com/photo-1520350093825-859f2ae21a5e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #4b2c20;
             padding: 20px;
         }
         #quiz-container {
-            background: white;
+            background: rgba(255, 248, 220, 0.9); /* Parchment effect */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
             margin: auto;
+            border: 3px solid #8b5e3c;
         }
         h2 {
-            font-size: 20px;
+            font-size: 22px;
+            margin-bottom: 15px;
         }
         .btn {
             display: block;
             width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            font-size: 16px;
-            background: #007bff;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 18px;
+            background: #8b5e3c;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-family: 'IM Fell English SC', serif;
         }
         .btn:hover {
-            background: #0056b3;
+            background: #6d4833;
         }
         #feedback {
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 18px;
             font-weight: bold;
+            background: rgba(255, 236, 204, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #8b5e3c;
+            display: none; /* Hidden until answered */
+        }
+        #next-btn {
+            display: none; /* Initially hidden */
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -50,6 +66,7 @@
         <h2 id="question">Loading...</h2>
         <div id="options"></div>
         <p id="feedback"></p>
+        <button id="next-btn" class="btn" onclick="loadQuestion()">Next Question</button>
     </div>
 
     <script>
@@ -57,62 +74,62 @@
             { 
                 name: "Prehistoric Britain", 
                 dates: "c. 500,000 BC – 43 AD",
-                fact: "Prehistoric Britain saw the arrival of early humans and the development of stone tools. This era ended with the Roman invasion of 43 AD."
+                fact: "Prehistoric Britain saw early human settlements and stone tool development. It ended with the Roman invasion in 43 AD."
             },
             { 
                 name: "Roman Britain", 
                 dates: "43 – 410 AD",
-                fact: "Roman Britain was marked by roads, towns, and Hadrian’s Wall. The Romans left in 410 AD as their empire declined."
+                fact: "The Romans built roads, towns, and Hadrian’s Wall. They left in 410 AD as their empire declined."
             },
             { 
                 name: "Anglo-Saxon & Viking Age", 
                 dates: "410 – 1066",
-                fact: "The Anglo-Saxons settled Britain after the Romans left. Vikings raided in the 9th century, leading to battles and shifting power."
+                fact: "The Anglo-Saxons took over after the Romans, but Viking raids reshaped England's power balance."
             },
             { 
                 name: "Norman Period", 
                 dates: "1066 – 1154",
-                fact: "The Normans, led by William the Conqueror, won the Battle of Hastings in 1066. Feudalism and castles defined this period."
+                fact: "The Normans, led by William the Conqueror, introduced feudalism and castle building after winning the Battle of Hastings."
             },
             { 
                 name: "Plantagenet Period", 
                 dates: "1154 – 1485",
-                fact: "The Plantagenets ruled for over 300 years, seeing the Hundred Years' War and the Wars of the Roses. It ended with Henry VII’s rise."
+                fact: "This era saw the Hundred Years' War and the Wars of the Roses, ending with the rise of the Tudors."
             },
             { 
                 name: "Tudor Period", 
                 dates: "1485 – 1603",
-                fact: "The Tudors included Henry VIII, who broke from the Catholic Church, and Elizabeth I, who defeated the Spanish Armada in 1588."
+                fact: "The Tudors included Henry VIII, who broke from Rome, and Elizabeth I, who defeated the Spanish Armada."
             },
             { 
                 name: "Elizabethan Era", 
                 dates: "1558 – 1603",
-                fact: "Shakespeare thrived in the Elizabethan Golden Age. England also expanded its navy and colonization efforts."
+                fact: "A golden age of Shakespeare and exploration, this era ended with Elizabeth I's death."
             },
             { 
                 name: "Stuart Period", 
                 dates: "1603 – 1714",
-                fact: "The Stuarts saw the English Civil War, the execution of Charles I, and the Glorious Revolution, which established constitutional monarchy."
+                fact: "Marked by the Civil War, the execution of Charles I, and the Glorious Revolution, which limited monarchy power."
             },
             { 
                 name: "Georgian Period", 
                 dates: "1714 – 1837",
-                fact: "The Georgians ruled during the rise of the British Empire and the Industrial Revolution. The Regency Era was part of this period."
+                fact: "Britain saw the Industrial Revolution and American independence during this era."
             },
             { 
                 name: "Victorian Era", 
                 dates: "1837 – 1901",
-                fact: "Queen Victoria ruled for 63 years. Britain became the world's leading industrial and colonial power."
+                fact: "Queen Victoria’s rule saw massive industrial growth and expansion of the British Empire."
             },
             { 
                 name: "Edwardian Era", 
                 dates: "1901 – 1910",
-                fact: "The Edwardian era was a time of social change before World War I. It followed the Victorian era and preceded the modern age."
+                fact: "A time of elegance and change before World War I, the Edwardian era followed the Victorian period."
             },
             { 
                 name: "Modern Britain", 
                 dates: "1914 – Present",
-                fact: "Britain fought in two world wars, saw the fall of its empire, and became a leading global economy and cultural power."
+                fact: "Two world wars reshaped Britain, leading to decolonization and modern globalization."
             }
         ];
 
@@ -141,7 +158,8 @@
                 optionsHTML += `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}', '${period.fact}')">${date}</button>`;
             });
             document.getElementById("options").innerHTML = optionsHTML;
-            document.getElementById("feedback").innerText = "";
+            document.getElementById("feedback").style.display = "none";
+            document.getElementById("next-btn").style.display = "none";
         }
 
         function checkAnswer(selected, correct, fact) {
@@ -150,7 +168,8 @@
             } else {
                 document.getElementById("feedback").innerText = `❌ Incorrect! The correct answer is: ${correct}. ${fact}`;
             }
-            setTimeout(loadQuestion, 4000); // Load next question after 4 seconds
+            document.getElementById("feedback").style.display = "block";
+            document.getElementById("next-btn").style.display = "block";
         }
 
         loadQuestion(); // Start the quiz
