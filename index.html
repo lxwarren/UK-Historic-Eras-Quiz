@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        #quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            font-size: 20px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        #feedback {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h2 id="question">Loading...</h2>
+        <div id="options"></div>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        const historyPeriods = [
+            { name: "Prehistoric Britain", dates: "c. 500,000 BC – 43 AD" },
+            { name: "Roman Britain", dates: "43 – 410 AD" },
+            { name: "Anglo-Saxon & Viking Age", dates: "410 – 1066" },
+            { name: "Norman Period", dates: "1066 – 1154" },
+            { name: "Plantagenet Period", dates: "1154 – 1485" },
+            { name: "Tudor Period", dates: "1485 – 1603" },
+            { name: "Elizabethan Era", dates: "1558 – 1603" },
+            { name: "Stuart Period", dates: "1603 – 1714" },
+            { name: "Georgian Period", dates: "1714 – 1837" },
+            { name: "Victorian Era", dates: "1837 – 1901" },
+            { name: "Edwardian Era", dates: "1901 – 1910" },
+            { name: "Modern Britain", dates: "1914 – Present" }
+        ];
+
+        function getRandomPeriod() {
+            return historyPeriods[Math.floor(Math.random() * historyPeriods.length)];
+        }
+
+        function getRandomDates(correct) {
+            let options = [correct];
+            while (options.length < 4) {
+                let randomDate = historyPeriods[Math.floor(Math.random() * historyPeriods.length)].dates;
+                if (!options.includes(randomDate)) {
+                    options.push(randomDate);
+                }
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function loadQuestion() {
+            let period = getRandomPeriod();
+            let options = getRandomDates(period.dates);
+
+            document.getElementById("question").innerText = `When was the ${period.name}?`;
+            let optionsHTML = "";
+            options.forEach(date => {
+                optionsHTML += `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}')">${date}</button>`;
+            });
+            document.getElementById("options").innerHTML = optionsHTML;
+            document.getElementById("feedback").innerText = "";
+        }
+
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                document.getElementById("feedback").innerText = "✅ Correct!";
+            } else {
+                document.getElementById("feedback").innerText = `❌ Incorrect! The correct answer is: ${correct}`;
+            }
+            setTimeout(loadQuestion, 2000); // Load next question after 2 seconds
+        }
+
+        loadQuestion(); // Start the quiz
+    </script>
+
+</body>
+</html>
