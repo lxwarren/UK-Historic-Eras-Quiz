@@ -74,75 +74,48 @@
 
     <script>
         const historyPeriods = [
-            { 
-                name: "Prehistoric Britain", 
-                dates: "c. 500,000 BC – 43 AD",
-                fact: "Prehistoric Britain saw early human settlements, cave paintings, and the construction of stone monuments like Stonehenge. This era ended in 43 AD when the Romans invaded. It followed the Paleolithic, Mesolithic, and Neolithic periods and was succeeded by Roman Britain."
-            },
-            { 
-                name: "Roman Britain", 
-                dates: "43 – 410 AD",
-                fact: "Roman Britain began with Emperor Claudius' invasion in 43 AD. The Romans built roads, towns, and Hadrian’s Wall. They left in 410 AD due to the decline of the Roman Empire. This period followed Prehistoric Britain and was succeeded by the Anglo-Saxon era."
-            },
-            { 
-                name: "Anglo-Saxon & Viking Age", 
-                dates: "410 – 1066",
-                fact: "Following Rome’s withdrawal, Anglo-Saxon kingdoms emerged, bringing new culture and language. Viking raids in the 9th century reshaped England, leading to conflicts between Saxons and Norsemen. This era ended with the Norman conquest in 1066."
-            },
-            { 
-                name: "Norman Period", 
-                dates: "1066 – 1154",
-                fact: "The Normans, led by William the Conqueror, won the Battle of Hastings in 1066 and introduced feudalism. They built castles and reshaped English society. This period followed the Anglo-Saxon era and was succeeded by the Plantagenets."
-            },
-            { 
-                name: "Plantagenet Period", 
-                dates: "1154 – 1485",
-                fact: "The Plantagenets ruled for over 300 years, overseeing the Magna Carta (1215), the Hundred Years’ War, and the Wars of the Roses. The period ended in 1485 with Henry VII’s victory at Bosworth. It followed the Norman era and led into the Tudors."
-            },
-            { 
-                name: "Tudor Period", 
-                dates: "1485 – 1603",
-                fact: "The Tudor period began with Henry VII and included Henry VIII’s break from the Catholic Church and Elizabeth I’s defeat of the Spanish Armada in 1588. It ended in 1603 with Elizabeth’s death, leading into the Stuart period."
-            },
-            { 
-                name: "Elizabethan Era", 
-                dates: "1558 – 1603",
-                fact: "The Elizabethan era, part of the Tudor period, was a golden age of literature (Shakespeare) and exploration (Sir Francis Drake). It ended with the death of Elizabeth I and led into the Stuart period."
-            },
-            { 
-                name: "Stuart Period", 
-                dates: "1603 – 1714",
-                fact: "The Stuart period saw the English Civil War, Charles I’s execution, and the Glorious Revolution, which limited monarchy power. It followed the Tudors and led into the Georgian era."
-            },
-            { 
-                name: "Georgian Period", 
-                dates: "1714 – 1837",
-                fact: "This period included the Industrial Revolution and American independence. It followed the Stuarts and led into the Victorian era."
-            },
-            { 
-                name: "Victorian Era", 
-                dates: "1837 – 1901",
-                fact: "The Victorian era began with Queen Victoria's coronation in 1837 and saw Britain become a global industrial power. It ended in 1901 and was followed by the Edwardian era."
-            },
-            { 
-                name: "Edwardian Era", 
-                dates: "1901 – 1910",
-                fact: "King Edward VII’s reign marked a period of elegance and social change before World War I. It followed the Victorian era and led into the modern age."
-            },
-            { 
-                name: "Modern Britain", 
-                dates: "1914 – Present",
-                fact: "Britain fought in two world wars and saw its empire dissolve, leading to modern globalization. It followed the Edwardian era."
-            }
+            { name: "Prehistoric Britain", dates: "c. 500,000 BC – 43 AD", fact: "This era saw early human settlements, cave paintings, and the construction of stone monuments like Stonehenge. It ended with the Roman invasion in 43 AD." },
+            { name: "Roman Britain", dates: "43 – 410 AD", fact: "Emperor Claudius invaded in 43 AD. The Romans built roads, towns, and Hadrian’s Wall before withdrawing in 410 AD." },
+            { name: "Anglo-Saxon & Viking Age", dates: "410 – 1066", fact: "Anglo-Saxon kingdoms emerged after the Romans left, but Viking raids shaped England's power struggles." },
+            { name: "Norman Period", dates: "1066 – 1154", fact: "William the Conqueror's victory at Hastings in 1066 led to Norman rule and the introduction of feudalism." },
+            { name: "Plantagenet Period", dates: "1154 – 1485", fact: "Spanning over 300 years, this era saw the Magna Carta, the Hundred Years’ War, and the Wars of the Roses." },
+            { name: "Tudor Period", dates: "1485 – 1603", fact: "This period saw the reigns of Henry VIII and Elizabeth I, the English Reformation, and the defeat of the Spanish Armada." },
+            { name: "Elizabethan Era", dates: "1558 – 1603", fact: "A golden age of literature (Shakespeare) and exploration (Sir Francis Drake). It ended with Elizabeth I’s death." },
+            { name: "Stuart Period", dates: "1603 – 1714", fact: "Marked by the English Civil War, Charles I’s execution, and the Glorious Revolution." },
+            { name: "Georgian Period", dates: "1714 – 1837", fact: "The Industrial Revolution and the American War of Independence occurred during this time." },
+            { name: "Victorian Era", dates: "1837 – 1901", fact: "Queen Victoria's reign saw industrial expansion and the height of the British Empire." },
+            { name: "Edwardian Era", dates: "1901 – 1910", fact: "A period of elegance and change before World War I." },
+            { name: "Modern Britain", dates: "1914 – Present", fact: "Britain fought in two world wars and underwent major political and social change." }
         ];
 
+        let lastQuestionIndex = -1; // Stores the index of the last question to prevent repeats
+
         function loadQuestion() {
-            let period = historyPeriods[Math.floor(Math.random() * historyPeriods.length)];
-            let options = historyPeriods.map(p => p.dates).sort(() => Math.random() - 0.5).slice(0, 4);
+            let randomIndex;
+            
+            // Ensure we don't repeat the last question
+            do {
+                randomIndex = Math.floor(Math.random() * historyPeriods.length);
+            } while (randomIndex === lastQuestionIndex);
+
+            lastQuestionIndex = randomIndex; // Update last question index
+            let period = historyPeriods[randomIndex];
+            let correctAnswer = period.dates;
+            let options = [correctAnswer];
+
+            // Generate 3 unique incorrect answers
+            while (options.length < 4) {
+                let randomPeriod = historyPeriods[Math.floor(Math.random() * historyPeriods.length)].dates;
+                if (!options.includes(randomPeriod)) {
+                    options.push(randomPeriod);
+                }
+            }
+
+            options.sort(() => Math.random() - 0.5); // Shuffle options
 
             document.getElementById("question").innerText = `When was the ${period.name}?`;
             document.getElementById("options").innerHTML = options.map(date =>
-                `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}', '${period.fact}')">${date}</button>`
+                `<button class="btn" onclick="checkAnswer('${date}', '${correctAnswer}', '${period.fact}')">${date}</button>`
             ).join("");
             document.getElementById("feedback").style.display = "none";
             document.getElementById("next-btn").style.display = "none";
