@@ -54,18 +54,66 @@
 
     <script>
         const historyPeriods = [
-            { name: "Prehistoric Britain", dates: "c. 500,000 BC – 43 AD" },
-            { name: "Roman Britain", dates: "43 – 410 AD" },
-            { name: "Anglo-Saxon & Viking Age", dates: "410 – 1066" },
-            { name: "Norman Period", dates: "1066 – 1154" },
-            { name: "Plantagenet Period", dates: "1154 – 1485" },
-            { name: "Tudor Period", dates: "1485 – 1603" },
-            { name: "Elizabethan Era", dates: "1558 – 1603" },
-            { name: "Stuart Period", dates: "1603 – 1714" },
-            { name: "Georgian Period", dates: "1714 – 1837" },
-            { name: "Victorian Era", dates: "1837 – 1901" },
-            { name: "Edwardian Era", dates: "1901 – 1910" },
-            { name: "Modern Britain", dates: "1914 – Present" }
+            { 
+                name: "Prehistoric Britain", 
+                dates: "c. 500,000 BC – 43 AD",
+                fact: "Prehistoric Britain saw the arrival of early humans and the development of stone tools. This era ended with the Roman invasion of 43 AD."
+            },
+            { 
+                name: "Roman Britain", 
+                dates: "43 – 410 AD",
+                fact: "Roman Britain was marked by roads, towns, and Hadrian’s Wall. The Romans left in 410 AD as their empire declined."
+            },
+            { 
+                name: "Anglo-Saxon & Viking Age", 
+                dates: "410 – 1066",
+                fact: "The Anglo-Saxons settled Britain after the Romans left. Vikings raided in the 9th century, leading to battles and shifting power."
+            },
+            { 
+                name: "Norman Period", 
+                dates: "1066 – 1154",
+                fact: "The Normans, led by William the Conqueror, won the Battle of Hastings in 1066. Feudalism and castles defined this period."
+            },
+            { 
+                name: "Plantagenet Period", 
+                dates: "1154 – 1485",
+                fact: "The Plantagenets ruled for over 300 years, seeing the Hundred Years' War and the Wars of the Roses. It ended with Henry VII’s rise."
+            },
+            { 
+                name: "Tudor Period", 
+                dates: "1485 – 1603",
+                fact: "The Tudors included Henry VIII, who broke from the Catholic Church, and Elizabeth I, who defeated the Spanish Armada in 1588."
+            },
+            { 
+                name: "Elizabethan Era", 
+                dates: "1558 – 1603",
+                fact: "Shakespeare thrived in the Elizabethan Golden Age. England also expanded its navy and colonization efforts."
+            },
+            { 
+                name: "Stuart Period", 
+                dates: "1603 – 1714",
+                fact: "The Stuarts saw the English Civil War, the execution of Charles I, and the Glorious Revolution, which established constitutional monarchy."
+            },
+            { 
+                name: "Georgian Period", 
+                dates: "1714 – 1837",
+                fact: "The Georgians ruled during the rise of the British Empire and the Industrial Revolution. The Regency Era was part of this period."
+            },
+            { 
+                name: "Victorian Era", 
+                dates: "1837 – 1901",
+                fact: "Queen Victoria ruled for 63 years. Britain became the world's leading industrial and colonial power."
+            },
+            { 
+                name: "Edwardian Era", 
+                dates: "1901 – 1910",
+                fact: "The Edwardian era was a time of social change before World War I. It followed the Victorian era and preceded the modern age."
+            },
+            { 
+                name: "Modern Britain", 
+                dates: "1914 – Present",
+                fact: "Britain fought in two world wars, saw the fall of its empire, and became a leading global economy and cultural power."
+            }
         ];
 
         function getRandomPeriod() {
@@ -90,19 +138,19 @@
             document.getElementById("question").innerText = `When was the ${period.name}?`;
             let optionsHTML = "";
             options.forEach(date => {
-                optionsHTML += `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}')">${date}</button>`;
+                optionsHTML += `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}', '${period.fact}')">${date}</button>`;
             });
             document.getElementById("options").innerHTML = optionsHTML;
             document.getElementById("feedback").innerText = "";
         }
 
-        function checkAnswer(selected, correct) {
+        function checkAnswer(selected, correct, fact) {
             if (selected === correct) {
-                document.getElementById("feedback").innerText = "✅ Correct!";
+                document.getElementById("feedback").innerText = `✅ Correct! ${fact}`;
             } else {
-                document.getElementById("feedback").innerText = `❌ Incorrect! The correct answer is: ${correct}`;
+                document.getElementById("feedback").innerText = `❌ Incorrect! The correct answer is: ${correct}. ${fact}`;
             }
-            setTimeout(loadQuestion, 2000); // Load next question after 2 seconds
+            setTimeout(loadQuestion, 4000); // Load next question after 4 seconds
         }
 
         loadQuestion(); // Start the quiz
