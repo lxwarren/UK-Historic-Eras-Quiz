@@ -16,30 +16,30 @@
             padding: 20px;
         }
         #quiz-container {
-            background: rgba(255, 248, 220, 0.9); /* Parchment effect */
-            padding: 20px;
+            background: rgba(255, 248, 220, 0.95);
+            padding: 25px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            max-width: 550px;
             margin: auto;
             border: 3px solid #8b5e3c;
         }
         h2 {
-            font-size: 22px;
+            font-size: 26px;
             margin-bottom: 15px;
         }
         .btn {
             display: block;
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            font-size: 18px;
+            padding: 14px;
+            margin: 10px 0;
+            font-size: 20px;
             background: #8b5e3c;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'IM Fell English SC', serif;
+            font-family: Arial, sans-serif;
         }
         .btn:hover {
             background: #6d4833;
@@ -48,15 +48,18 @@
             margin-top: 15px;
             font-size: 18px;
             font-weight: bold;
-            background: rgba(255, 236, 204, 0.8);
-            padding: 10px;
+            background: rgba(255, 236, 204, 0.9);
+            padding: 15px;
             border-radius: 5px;
             border: 2px solid #8b5e3c;
-            display: none; /* Hidden until answered */
+            font-family: Arial, sans-serif;
+            display: none;
+            text-align: left;
         }
         #next-btn {
-            display: none; /* Initially hidden */
+            display: none;
             margin-top: 15px;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -74,105 +77,84 @@
             { 
                 name: "Prehistoric Britain", 
                 dates: "c. 500,000 BC – 43 AD",
-                fact: "Prehistoric Britain saw early human settlements and stone tool development. It ended with the Roman invasion in 43 AD."
+                fact: "Prehistoric Britain saw early human settlements, cave paintings, and the construction of stone monuments like Stonehenge. This era ended in 43 AD when the Romans invaded. It followed the Paleolithic, Mesolithic, and Neolithic periods and was succeeded by Roman Britain."
             },
             { 
                 name: "Roman Britain", 
                 dates: "43 – 410 AD",
-                fact: "The Romans built roads, towns, and Hadrian’s Wall. They left in 410 AD as their empire declined."
+                fact: "Roman Britain began with Emperor Claudius' invasion in 43 AD. The Romans built roads, towns, and Hadrian’s Wall. They left in 410 AD due to the decline of the Roman Empire. This period followed Prehistoric Britain and was succeeded by the Anglo-Saxon era."
             },
             { 
                 name: "Anglo-Saxon & Viking Age", 
                 dates: "410 – 1066",
-                fact: "The Anglo-Saxons took over after the Romans, but Viking raids reshaped England's power balance."
+                fact: "Following Rome’s withdrawal, Anglo-Saxon kingdoms emerged, bringing new culture and language. Viking raids in the 9th century reshaped England, leading to conflicts between Saxons and Norsemen. This era ended with the Norman conquest in 1066."
             },
             { 
                 name: "Norman Period", 
                 dates: "1066 – 1154",
-                fact: "The Normans, led by William the Conqueror, introduced feudalism and castle building after winning the Battle of Hastings."
+                fact: "The Normans, led by William the Conqueror, won the Battle of Hastings in 1066 and introduced feudalism. They built castles and reshaped English society. This period followed the Anglo-Saxon era and was succeeded by the Plantagenets."
             },
             { 
                 name: "Plantagenet Period", 
                 dates: "1154 – 1485",
-                fact: "This era saw the Hundred Years' War and the Wars of the Roses, ending with the rise of the Tudors."
+                fact: "The Plantagenets ruled for over 300 years, overseeing the Magna Carta (1215), the Hundred Years’ War, and the Wars of the Roses. The period ended in 1485 with Henry VII’s victory at Bosworth. It followed the Norman era and led into the Tudors."
             },
             { 
                 name: "Tudor Period", 
                 dates: "1485 – 1603",
-                fact: "The Tudors included Henry VIII, who broke from Rome, and Elizabeth I, who defeated the Spanish Armada."
+                fact: "The Tudor period began with Henry VII and included Henry VIII’s break from the Catholic Church and Elizabeth I’s defeat of the Spanish Armada in 1588. It ended in 1603 with Elizabeth’s death, leading into the Stuart period."
             },
             { 
                 name: "Elizabethan Era", 
                 dates: "1558 – 1603",
-                fact: "A golden age of Shakespeare and exploration, this era ended with Elizabeth I's death."
+                fact: "The Elizabethan era, part of the Tudor period, was a golden age of literature (Shakespeare) and exploration (Sir Francis Drake). It ended with the death of Elizabeth I and led into the Stuart period."
             },
             { 
                 name: "Stuart Period", 
                 dates: "1603 – 1714",
-                fact: "Marked by the Civil War, the execution of Charles I, and the Glorious Revolution, which limited monarchy power."
+                fact: "The Stuart period saw the English Civil War, Charles I’s execution, and the Glorious Revolution, which limited monarchy power. It followed the Tudors and led into the Georgian era."
             },
             { 
                 name: "Georgian Period", 
                 dates: "1714 – 1837",
-                fact: "Britain saw the Industrial Revolution and American independence during this era."
+                fact: "This period included the Industrial Revolution and American independence. It followed the Stuarts and led into the Victorian era."
             },
             { 
                 name: "Victorian Era", 
                 dates: "1837 – 1901",
-                fact: "Queen Victoria’s rule saw massive industrial growth and expansion of the British Empire."
+                fact: "The Victorian era began with Queen Victoria's coronation in 1837 and saw Britain become a global industrial power. It ended in 1901 and was followed by the Edwardian era."
             },
             { 
                 name: "Edwardian Era", 
                 dates: "1901 – 1910",
-                fact: "A time of elegance and change before World War I, the Edwardian era followed the Victorian period."
+                fact: "King Edward VII’s reign marked a period of elegance and social change before World War I. It followed the Victorian era and led into the modern age."
             },
             { 
                 name: "Modern Britain", 
                 dates: "1914 – Present",
-                fact: "Two world wars reshaped Britain, leading to decolonization and modern globalization."
+                fact: "Britain fought in two world wars and saw its empire dissolve, leading to modern globalization. It followed the Edwardian era."
             }
         ];
 
-        function getRandomPeriod() {
-            return historyPeriods[Math.floor(Math.random() * historyPeriods.length)];
-        }
-
-        function getRandomDates(correct) {
-            let options = [correct];
-            while (options.length < 4) {
-                let randomDate = historyPeriods[Math.floor(Math.random() * historyPeriods.length)].dates;
-                if (!options.includes(randomDate)) {
-                    options.push(randomDate);
-                }
-            }
-            return options.sort(() => Math.random() - 0.5);
-        }
-
         function loadQuestion() {
-            let period = getRandomPeriod();
-            let options = getRandomDates(period.dates);
+            let period = historyPeriods[Math.floor(Math.random() * historyPeriods.length)];
+            let options = historyPeriods.map(p => p.dates).sort(() => Math.random() - 0.5).slice(0, 4);
 
             document.getElementById("question").innerText = `When was the ${period.name}?`;
-            let optionsHTML = "";
-            options.forEach(date => {
-                optionsHTML += `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}', '${period.fact}')">${date}</button>`;
-            });
-            document.getElementById("options").innerHTML = optionsHTML;
+            document.getElementById("options").innerHTML = options.map(date =>
+                `<button class="btn" onclick="checkAnswer('${date}', '${period.dates}', '${period.fact}')">${date}</button>`
+            ).join("");
             document.getElementById("feedback").style.display = "none";
             document.getElementById("next-btn").style.display = "none";
         }
 
         function checkAnswer(selected, correct, fact) {
-            if (selected === correct) {
-                document.getElementById("feedback").innerText = `✅ Correct! ${fact}`;
-            } else {
-                document.getElementById("feedback").innerText = `❌ Incorrect! The correct answer is: ${correct}. ${fact}`;
-            }
+            document.getElementById("feedback").innerHTML = selected === correct ? `✅ Correct! ${fact}` : `❌ Incorrect! The correct answer is: ${correct}. ${fact}`;
             document.getElementById("feedback").style.display = "block";
             document.getElementById("next-btn").style.display = "block";
         }
 
-        loadQuestion(); // Start the quiz
+        loadQuestion();
     </script>
 
 </body>
